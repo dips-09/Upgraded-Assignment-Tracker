@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Homework8_AssignmentTracker.Models.Assignment>
+
+@{
+    ViewData["Title"] = "TaskListing";
+}
+
+<center>
+    <h1>Completed Assignments</h1>
+</center>
+
+<br />
+
+<br />
+<table class="table" border="1">
+    <thead>
+        <tr>
+            <th>
+                Priority
+            </th>
+            <th>
+                Due
+            </th>
+            <th>
+                Course
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Notes
+            </th>
+            <th>
+                Tags
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssignmentPriority)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DueDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Course)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssignmentTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssignmentNotes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssignmentTags)
+                    </td>
+
+                </tr>
+            
+
+        }
+    </tbody>
+</table>

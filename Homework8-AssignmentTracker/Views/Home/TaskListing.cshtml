@@ -1,0 +1,98 @@
+﻿@model IEnumerable<Homework8_AssignmentTracker.Models.Assignment>
+
+@{
+    ViewData["Title"] = "TaskListing";
+}
+
+<center>
+    <h1>Current Assignments</h1>
+</center>
+
+<br />
+<div class="row">
+    <form asp-action="sortbypriority">
+        <button class="btn btn-outline-secondary " style="border-radius:12px; width: 200px">Sort By Priority</button>
+    </form>
+
+    &nbsp; &nbsp;
+    <form asp-action="sortbyduedate">
+        <button class="btn btn-outline-secondary " style="border-radius:12px; width: 200px">Sort By Due Date</button>
+    </form>
+    &nbsp; &nbsp;
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sort By Course
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="@Url.Action("sortByCourse","Home",new { value = "CS461"})">CS461</a>
+            <a class="dropdown-item" href="@Url.Action("sortByCourse","Home",new { value = "CS465"})">CS465</a>
+            <a class="dropdown-item" href="@Url.Action("sortByCourse","Home",new { value = "ANTH370"})">ANTH370</a>
+            <a class="dropdown-item" href="@Url.Action("sortByCourse","Home",new { value = "MUS102"})">MUS102</a>
+        </div>
+    </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <form asp-action="sortByTags">
+        <p>
+            <input type="text" class="form-control" name="SearchString" placeholder="Sort by a tag name" />
+            <br />
+            <input type="submit" class="btn btn-outline-secondary" style="border-radius:12px; width: 200px" value="Search">
+        </p>
+    </form>
+</div>
+<br />
+<table class="table" border="1">
+    <thead>
+        <tr>
+            <th>
+               Priority
+            </th>
+            <th>
+                Due
+            </th>
+            <th>
+                Course
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Notes
+            </th>
+            <th>
+                Tags
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssignmentPriority)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DueDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Course)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssignmentTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssignmentNotes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssignmentTags)
+                </td>
+                <td>
+                    <a class="btn btn-outline-secondary" href="@Url.Action("markAsCompleted","Home",new { id = item.AssignmentId})">Mark As Complete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
