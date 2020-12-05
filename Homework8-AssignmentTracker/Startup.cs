@@ -6,6 +6,7 @@ using Homework8_AssignmentTracker.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,7 @@ namespace Homework8_AssignmentTracker
 {
     public class Startup
     {
+        private string connectionString = null;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,8 +27,12 @@ namespace Homework8_AssignmentTracker
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var builder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("AzureconStr"));
+            builder.Password = Configuration["Homework8:DBPassword"];
             services.AddControllersWithViews();
-            //services.AddDbContextPool<DBHomework8Context>(item => item.UseSqlServer(Configuration.GetConnectionString("conStr")));
+            services.AddDbContext<DBHomework8Context>(item =>
+                //item.UseSqlServer(Configuration.GetConnectionString("AzureconStr")));
+                item.UseSqlServer(Configuration.GetConnectionString(builder.ConnectionString)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
