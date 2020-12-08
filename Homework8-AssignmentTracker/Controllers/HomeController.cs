@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Homework8_AssignmentTracker.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace Homework8_AssignmentTracker.Controllers
 {
@@ -14,9 +15,11 @@ namespace Homework8_AssignmentTracker.Controllers
         private readonly ILogger<HomeController> _logger;
 
         private DBHomework8Context context;
-        public HomeController(ILogger<HomeController> logger)
+        //private IConfiguration config;
+        public HomeController(ILogger<HomeController> logger)//,IConfiguration _config)
         {
             _logger = logger;
+            /*config = _config;*/
             
         }
         private static List<Assignment> list;
